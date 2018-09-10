@@ -4,12 +4,9 @@
         "url": "https://github.com/dpjanes/iotdb-query/issues"
     }, 
     "dependencies": {
-        "iotdb-helpers": "~3.2.3", 
-        "query": "~2.15.0"
+        "iotdb-helpers": "~3.2.20"
     }, 
-    "description": "Pipe Oriented Programming", 
-    "devDependencies": {
-    }, 
+    "description": "Query Helpers", 
     "homepage": "https://github.com/dpjanes/node-iotdb", 
     "license": "Apache-2.0", 
     "main": "index.js", 
