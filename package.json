@@ -4,7 +4,7 @@
         "url": "https://github.com/dpjanes/iotdb-query/issues"
     }, 
     "dependencies": {
-        "iotdb-helpers": "~3.2.20"
+        "iotdb-helpers": "~3.3.2"
     }, 
     "description": "Query Helpers", 
     "homepage": "https://github.com/dpjanes/node-iotdb", 
