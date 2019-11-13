@@ -5,7 +5,8 @@ const movies = require("./movies.json")
 let qd = {
     // "info/directors": "Ron Howard",
     "info/actors": "Morgan Freeman",
-    "year": [ "<=", 2000 ],
+    // "year": [ "<=", 2000 ],
+    "year": [ "in", 2000, 2013 ],
 }
 
 _.promise({
