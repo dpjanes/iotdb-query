@@ -39,7 +39,7 @@ let qd = {
 */
 
 
-describe("test", function() {
+describe("filter", function() {
     it("all", function(done) {
         _.promise({
             jsons: movies,

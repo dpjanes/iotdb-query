@@ -47,17 +47,19 @@ describe("parse", function() {
                 f: [ '>', -99 ]
             }
 
-            const result = query.parse([
+            const got = query.parse([
                 "a<2",
                 "b<=3",
                 "c=4",
                 "d!=-1",
                 "e>=-10",
                 "f>-99",
-
             ])
 
-            assert.deepEqual(result, expected)
+            // console.log(JSON.stringify(got, null, 2))
+            // process.exit()
+
+            assert.deepEqual(got, expected)
         })
         it("float", function() {
             const expected = { 
@@ -69,7 +71,7 @@ describe("parse", function() {
                 f: [ '>', -99.1 ]
             }
 
-            const result = query.parse([
+            const got = query.parse([
                 "a<2.1",
                 "b<=3.1",
                 "c=4.1",
@@ -79,8 +81,8 @@ describe("parse", function() {
 
             ])
 
-            assert.deepEqual(result, expected)
-            // console.log(result)
+            assert.deepEqual(got, expected)
+            // console.log(got)
         })
         it("dates", function() {
             const expected = { 
@@ -92,7 +94,7 @@ describe("parse", function() {
                 f: [ '>', '2017-07' ],
             }
 
-            const result = query.parse([
+            const got = query.parse([
                 "a<2017-07",
                 "b<=2017-07",
                 "c=1970-01-01",
@@ -101,8 +103,8 @@ describe("parse", function() {
                 "f>2017-07",
             ])
 
-            assert.deepEqual(result, expected)
-            // console.log(result)
+            assert.deepEqual(got, expected)
+            // console.log(got)
         })
         it("between/in", function() {
             const expected = { 
@@ -110,13 +112,13 @@ describe("parse", function() {
                 y: [ 'in', 'a', 'b', 'cde', 'fg' ]
             }
 
-            const result = query.parse([
+            const got = query.parse([
                 "x between 1,2",
                 "y in a,b,cde,fg",
             ])
 
-            assert.deepEqual(result, expected)
-            // console.log(result)
+            assert.deepEqual(got, expected)
+            // console.log(got)
         })
     })
 })
