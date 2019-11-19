@@ -53,9 +53,29 @@ describe("test:", function() {
 
             assert.strictEqual(got, expected)
         })
+        it("dictionary query", function() {
+            const qd = {
+                name: {},
+            }
+            try {
+                const got = query.test(record_a, qd)
+                assert.ok(false, "did not excpect to get here")
+            } catch (x) {
+            }
+        })
+        it("no such query", function() {
+            const qd = {
+                name: [ "blarg", 21 ],
+            }
+            try {
+                const got = query.test(record_a, qd)
+                assert.ok(false, "did not excpect to get here")
+            } catch (x) {
+            }
+        })
     })
     describe("strings:", function() {
-        it("exact match", function() {
+        it("exact - yes", function() {
             const qd = {
                 name: "Freddy Jones",
             }
@@ -64,7 +84,7 @@ describe("test:", function() {
 
             assert.strictEqual(got, expected)
         })
-        it("not match", function() {
+        it("exact - no", function() {
             const qd = {
                 name: "Jon Jones",
             }
@@ -73,12 +93,186 @@ describe("test:", function() {
 
             assert.strictEqual(got, expected)
         })
-        it("in", function() {
+        it("in - yes", function() {
             const qd = {
                 name: [ "in", "Jon Jones", "Freddy Jones", ],
             }
             const got = query.test(record_a, qd)
             const expected = true
+
+            assert.strictEqual(got, expected)
+        })
+        it("in - no", function() {
+            const qd = {
+                name: [ "in", "A", "B", "C" ],
+            }
+            const got = query.test(record_a, qd)
+            const expected = false
+
+            assert.strictEqual(got, expected)
+        })
+        it("not-in - yes", function() {
+            const qd = {
+                name: [ "not-in", "A", "B", "C" ],
+            }
+            const got = query.test(record_a, qd)
+            const expected = true
+
+            assert.strictEqual(got, expected)
+        })
+        it("not-in - no", function() {
+            const qd = {
+                name: [ "not-in", "Jon Jones", "Freddy Jones", ],
+            }
+            const got = query.test(record_a, qd)
+            const expected = false
+
+            assert.strictEqual(got, expected)
+        })
+        it("startswith - yes", function() {
+            const qd = {
+                name: [ "startswith", "A", "B", "C", "D", "E", "F" ],
+            }
+            const got = query.test(record_a, qd)
+            const expected = true
+
+            assert.strictEqual(got, expected)
+        })
+        it("startswith - no", function() {
+            const qd = {
+                name: [ "startswith", "G", "H", "I", "J", "K", "L" ],
+            }
+            const got = query.test(record_a, qd)
+            const expected = false
+
+            assert.strictEqual(got, expected)
+        })
+        it("= - yes", function() {
+            const qd = {
+                name: [ "=", "Freddy Jones", "A" ],
+            }
+            const got = query.test(record_a, qd)
+            const expected = true
+
+            assert.strictEqual(got, expected)
+        })
+        it("= - no", function() {
+            const qd = {
+                name: [ "=", "Jon Jones", "B", ]
+            }
+            const got = query.test(record_a, qd)
+            const expected = false
+
+            assert.strictEqual(got, expected)
+        })
+        it(">= - yes", function() {
+            const qd = {
+                name: [ ">=", "Freddy Jones", "A" ],
+            }
+            const got = query.test(record_a, qd)
+            const expected = true
+
+            assert.strictEqual(got, expected)
+        })
+        it(">= - no", function() {
+            const qd = {
+                name: [ ">=", "Jon Jones", "K", ]
+            }
+            const got = query.test(record_a, qd)
+            const expected = false
+
+            assert.strictEqual(got, expected)
+        })
+        it("<= - yes", function() {
+            const qd = {
+                name: [ "<=", "Freddy Jones", "F", ],
+            }
+            const got = query.test(record_a, qd)
+            const expected = true
+
+            assert.strictEqual(got, expected)
+        })
+        it("<= - no", function() {
+            const qd = {
+                name: [ "<=", "Abby Jones", "A", ]
+            }
+            const got = query.test(record_a, qd)
+            const expected = false
+
+            assert.strictEqual(got, expected)
+        })
+
+        it("> - yes", function() {
+            const qd = {
+                name: [ ">", "A" ],
+            }
+            const got = query.test(record_a, qd)
+            const expected = true
+
+            assert.strictEqual(got, expected)
+        })
+        it("> - no", function() {
+            const qd = {
+                name: [ ">", "K", ]
+            }
+            const got = query.test(record_a, qd)
+            const expected = false
+
+            assert.strictEqual(got, expected)
+        })
+        it("< - yes", function() {
+            const qd = {
+                name: [ "<", "G", ],
+            }
+            const got = query.test(record_a, qd)
+            const expected = true
+
+            assert.strictEqual(got, expected)
+        })
+        it("< - no", function() {
+            const qd = {
+                name: [ "<", "A", ]
+            }
+            const got = query.test(record_a, qd)
+            const expected = false
+
+            assert.strictEqual(got, expected)
+        })
+
+        it("any - yes", function() {
+            const qd = {
+                name: [ "any" ],
+            }
+            const got = query.test(record_a, qd)
+            const expected = true
+
+            assert.strictEqual(got, expected)
+        })
+        it("any - no", function() {
+            const qd = {
+                doesNotExist: [ "any" ],
+            }
+            const got = query.test(record_a, qd)
+            const expected = false
+
+            assert.strictEqual(got, expected)
+        })
+
+        it("* - yes", function() {
+            const qd = {
+                name: "*",
+            }
+            const got = query.test(record_a, qd)
+            const expected = true
+
+            assert.strictEqual(got, expected)
+        })
+        it("* - no", function() {
+            const qd = {
+                doesNotExist: "*",
+            }
+            const got = query.test(record_a, qd)
+            const expected = false
 
             assert.strictEqual(got, expected)
         })
