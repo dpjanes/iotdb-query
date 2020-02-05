@@ -56,4 +56,50 @@ describe("filter", function() {
             })
             .end(done)
     })
+    describe("extensions", function() {
+        const paramd = {
+            extensions: {
+                ronhoward: (qvs, rvs, record) => rvs.indexOf("Ron Howard") > -1,
+                morganfreeman: (qvs, rvs, record) => 
+                    _.d.list(record, "info/actors", []).indexOf("Morgan Freeman") > -1,
+            }
+        }
+
+        it("row based", function(done) {
+            _.promise({
+                jsons: movies,
+                query: {
+                    "info/directors": [ "ronhoward" ],
+                },
+                query$paramd: paramd,
+            })
+                .then(query.filter)
+                .make(sd => {
+                    const got = sd.jsons.length
+                    const expected = 1
+
+                    assert.strictEqual(got, expected)
+                    assert.ok(_.is.Array.of.Dictionary(sd.jsons))
+                })
+                .end(done)
+        })
+        it("record based based", function(done) {
+            _.promise({
+                jsons: movies,
+                query: {
+                    "ITDOESNOTMATTER": [ "morganfreeman" ],
+                },
+                query$paramd: paramd,
+            })
+                .then(query.filter)
+                .make(sd => {
+                    const got = sd.jsons.length
+                    const expected = 3
+
+                    assert.strictEqual(got, expected)
+                    assert.ok(_.is.Array.of.Dictionary(sd.jsons))
+                })
+                .end(done)
+        })
+    })
 })

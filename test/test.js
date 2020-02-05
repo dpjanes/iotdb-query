@@ -277,4 +277,46 @@ describe("test:", function() {
             assert.strictEqual(got, expected)
         })
     })
+    describe("extensions", function() {
+        const paramd = {
+            extensions: {
+                blarg: (qvs, rvs) => qvs.length && (rvs.indexOf(qvs[0]) !== -1),
+            }
+        }
+        it("blarg - no name", function() {
+            const qd = {
+                name: [ "blarg", 21 ],
+            }
+            const rd = {
+            }
+            const got = query.test(rd, qd, paramd)
+            const expected = false
+
+            assert.strictEqual(got, expected)
+        })
+        it("blarg - name is 22", function() {
+            const qd = {
+                name: [ "blarg", 21 ],
+            }
+            const rd = {
+                name: 22,
+            }
+            const got = query.test(rd, qd, paramd)
+            const expected = false
+
+            assert.strictEqual(got, expected)
+        })
+        it("blarg - name is 21", function() {
+            const qd = {
+                name: [ "blarg", 21 ],
+            }
+            const rd = {
+                name: 21,
+            }
+            const got = query.test(rd, qd, paramd)
+            const expected = true
+
+            assert.strictEqual(got, expected)
+        })
+    })
 })
