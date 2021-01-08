@@ -4,8 +4,8 @@
         "url": "https://github.com/dpjanes/iotdb-query/issues"
     }, 
     "dependencies": {
-        "iotdb-errors": "~3.1.9", 
-        "iotdb-helpers": "~3.4.12"
+        "iotdb-errors": "^3.1.9", 
+        "iotdb-helpers": "^3.5.4"
     }, 
     "description": "Query Helpers", 
     "homepage": "https://github.com/dpjanes/node-iotdb", 
@@ -21,5 +21,5 @@
         "cover": "nyc --reporter=html mocha --recursive", 
         "test": "mocha --recursive --bail"
     }, 
-    "version": "1.0.5"
+    "version": "1.0.6"
 }
